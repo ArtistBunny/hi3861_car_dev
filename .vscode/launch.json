@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Jlink Debug",
+            "cwd": "${workspaceRoot}",
+            "request": "attach",
+            "type": "liteos-studio-debug",
+            "rtos": "tools\\hi3861\\JLinkGDBServer\\LiteOSPlugin.dll",
+            "servertype": "jlink",
+            "device": "Risc-V",
+            "interface": "swd",
+            "showDevDebugOutput": false
+        }
+    ]
+}

@@ -1,0 +1,91 @@
+{
+    "mcuChildExtension": {
+        "active": "false"
+    },
+    "compiler": {
+        "type": "GCC-Scons",
+        "path": "C:\\Users\\33952\\.huawei-liteos-studio\\tools\\hi3861\\hcc_riscv32_win\\bin\\",
+        "make": {
+            "path": ".\\tools\\build\\bin\\make.exe",
+            "script": "d:\\Project\\HiHope_WiFi-IoT_Hi3861SPC021\\SConstruct",
+            "args": "-j 32"
+        },
+        "gdbPath": ".\\tools\\arm-none-eabi\\bin",
+        "prefix": "riscv32-unknown-elf"
+    },
+    "output": {
+        "name": "",
+        "path": "D:\\Project\\HiHope_WiFi-IoT_Hi3861SPC021\\output\\bin\\Hi3861_demo_allinone.bin",
+        "burnPaths": [
+            ".\\output\\bin\\Hi3861_boot_signed.bin",
+            ".\\output\\bin\\Hi3861_boot_signed_B.bin",
+            ".\\output\\bin\\Hi3861_demo_flash_boot_ota.bin",
+            ".\\output\\bin\\Hi3861_loader_signed.bin",
+            ".\\output\\bin\\Hi3861_demo_allinone.bin",
+            ".\\output\\bin\\Hi3861_demo_burn.bin",
+            ".\\output\\bin\\Hi3861_demo_ota.bin"
+        ],
+        "elfPaths": [],
+        "asmPaths": [
+            ".\\output\\bin\\Hi3861_demo.asm"
+        ],
+        "debugPaths": [
+            ".\\output\\bin\\Hi3861_demo.out"
+        ]
+    },
+    "target": {
+        "UUID": "4422b3af-ac89-4410-88a8-f0b962428569",
+        "flag": "0",
+        "factory": "HiSilicon",
+        "boardName": "Hi3861V100",
+        "productName": "WiFi IoT",
+        "core": "LinxCore131",
+        "numberCores": 1,
+        "flashSize": "",
+        "romAddress": "",
+        "ramSize": "",
+        "ramAddress": "",
+        "restartAddress": "",
+        "featuresAddress": "",
+        "dataSheetAddress": "",
+        "operation": ""
+    },
+    "debugger": {
+        "type": "JLink",
+        "path": "C:\\Program Files (x86)\\SEGGER\\JLink",
+        "jlink": {
+            "interface": "SWD",
+            "speed": "8000",
+            "path": "C:\\Program Files (x86)\\SEGGER\\JLink",
+            "port": "USB"
+        },
+        "interface": "SWD",
+        "initType": "attach",
+        "initFile": ".vscode\\attach.gdbinit",
+        "compileOS": "Windows",
+        "compilePath": null,
+        "gdbPath": ".\\tools\\hi3861\\hcc_riscv32_win\\bin",
+        "param": "-f interface/stlink-v2-1.cfg -f target/stm32f7x.cfg"
+    },
+    "burner": {
+        "type": "HiBurner",
+        "speed": "8000",
+        "flashAddress": "null",
+        "loadAddress": "0x40000000",
+        "interface": "SWD",
+        "path": "C:\\Users\\33952\\.huawei-liteos-studio\\tools\\hi3861\\hiburn\\",
+        "erase": true,
+        "check": true,
+        "romsize": null,
+        "connection": "serial"
+    },
+    "serialPort": {
+        "port": "COM5",
+        "baudRate": "921600",
+        "dataBit": 8,
+        "stopBit": 1,
+        "parity": "None",
+        "flowControl": "None"
+    },
+    "component": {}
+}
