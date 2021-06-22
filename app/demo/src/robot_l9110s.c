@@ -13,7 +13,7 @@ hi_void gpio_control(hi_io_name gpio, hi_u8 func, hi_gpio_idx idx, hi_gpio_dir d
     hi_gpio_set_ouput_val(idx, value);
 }
 
-hi_void pwm_control(hi_io_name name, hi_u8 func, hi_pwm_port port, hi_u16 duty) {
+hi_void pwm_control(hi_io_name name, hi_u8 func, hi_pwm_port port, hi_u16 duty) { 
     hi_io_set_func(name, func);
     hi_pwm_init(port);
     hi_pwm_set_clock(PWM_CLK_160M);
@@ -21,15 +21,34 @@ hi_void pwm_control(hi_io_name name, hi_u8 func, hi_pwm_port port, hi_u16 duty) 
 
 }
 
-hi_void car_forward(hi_void) {
+hi_void car_forward_6000(hi_void) {
     gpio_control(HI_IO_NAME_GPIO_0, HI_IO_FUNC_GPIO_0_GPIO, HI_GPIO_IDX_0, HI_GPIO_DIR_OUT, HI_GPIO_VALUE1);
     pwm_control(HI_IO_NAME_GPIO_1, HI_IO_FUNC_GPIO_1_PWM4_OUT, HI_PWM_PORT_PWM4, 100);
     gpio_control(HI_IO_NAME_GPIO_9, HI_IO_FUNC_GPIO_9_GPIO, HI_GPIO_IDX_9, HI_GPIO_DIR_OUT, HI_GPIO_VALUE1);
     pwm_control(HI_IO_NAME_GPIO_10, HI_IO_FUNC_GPIO_1_PWM4_OUT, HI_PWM_PORT_PWM4, 100);
 }
 
+hi_void car_forward(hi_void) {
+    gpio_control(HI_IO_NAME_GPIO_0, HI_IO_FUNC_GPIO_0_GPIO, HI_GPIO_IDX_0, HI_GPIO_DIR_OUT, HI_GPIO_VALUE1);
+    pwm_control(HI_IO_NAME_GPIO_1, HI_IO_FUNC_GPIO_1_PWM4_OUT, HI_PWM_PORT_PWM4, 6000);
+    gpio_control(HI_IO_NAME_GPIO_9, HI_IO_FUNC_GPIO_9_GPIO, HI_GPIO_IDX_9, HI_GPIO_DIR_OUT, HI_GPIO_VALUE1);
+    pwm_control(HI_IO_NAME_GPIO_10, HI_IO_FUNC_GPIO_1_PWM4_OUT, HI_PWM_PORT_PWM4, 6000);
+}
 
+hi_void car_turn(hi_void) {
+    gpio_control(HI_IO_NAME_GPIO_0, HI_IO_FUNC_GPIO_0_GPIO, HI_GPIO_IDX_0, HI_GPIO_DIR_OUT, HI_GPIO_VALUE1);
+    pwm_control(HI_IO_NAME_GPIO_1, HI_IO_FUNC_GPIO_1_PWM4_OUT, HI_PWM_PORT_PWM4, 100);
+    gpio_control(HI_IO_NAME_GPIO_9, HI_IO_FUNC_GPIO_9_GPIO, HI_GPIO_IDX_9, HI_GPIO_DIR_OUT, HI_GPIO_VALUE1);
+    pwm_control(HI_IO_NAME_GPIO_10, HI_IO_FUNC_GPIO_1_PWM4_OUT, HI_PWM_PORT_PWM4, 40000);
+}   
 
+hi_void car_stop(hi_void) {
+    // 延时执行，value全1，刹车
+    gpio_control(HI_IO_NAME_GPIO_0, HI_IO_FUNC_GPIO_0_GPIO, HI_GPIO_IDX_0, HI_GPIO_DIR_OUT, HI_GPIO_VALUE1);
+    gpio_control(HI_IO_NAME_GPIO_1, HI_IO_FUNC_GPIO_1_GPIO, HI_GPIO_IDX_1, HI_GPIO_DIR_OUT, HI_GPIO_VALUE1);
+    gpio_control(HI_IO_NAME_GPIO_9, HI_IO_FUNC_GPIO_9_GPIO, HI_GPIO_IDX_9, HI_GPIO_DIR_OUT, HI_GPIO_VALUE1);
+    gpio_control(HI_IO_NAME_GPIO_10, HI_IO_FUNC_GPIO_10_GPIO, HI_GPIO_IDX_10, HI_GPIO_DIR_OUT, HI_GPIO_VALUE1);
+}
 
 hi_void robot_l9110s_demo(hi_void* param){
     printf("start test l9110s\r\n");
@@ -39,13 +58,12 @@ hi_void robot_l9110s_demo(hi_void* param){
     // // 轮子二
     // gpio_control(HI_IO_NAME_GPIO_9, HI_IO_FUNC_GPIO_9_GPIO, HI_GPIO_IDX_9, HI_GPIO_DIR_OUT, HI_GPIO_VALUE1);
     // gpio_control(HI_IO_NAME_GPIO_10, HI_IO_FUNC_GPIO_10_GPIO, HI_GPIO_IDX_10, HI_GPIO_DIR_OUT, HI_GPIO_VALUE0);
-    // // 延时
-    // hi_sleep(2000);
-    // // 延时执行，value全1，刹车
-    // gpio_control(HI_IO_NAME_GPIO_0, HI_IO_FUNC_GPIO_0_GPIO, HI_GPIO_IDX_0, HI_GPIO_DIR_OUT, HI_GPIO_VALUE1);
-    // gpio_control(HI_IO_NAME_GPIO_1, HI_IO_FUNC_GPIO_1_GPIO, HI_GPIO_IDX_1, HI_GPIO_DIR_OUT, HI_GPIO_VALUE1);
-    // gpio_control(HI_IO_NAME_GPIO_9, HI_IO_FUNC_GPIO_9_GPIO, HI_GPIO_IDX_9, HI_GPIO_DIR_OUT, HI_GPIO_VALUE1);
-    // gpio_control(HI_IO_NAME_GPIO_10, HI_IO_FUNC_GPIO_10_GPIO, HI_GPIO_IDX_10, HI_GPIO_DIR_OUT, HI_GPIO_VALUE1);
+    car_forward();
+    hi_sleep(2000);
+    car_forward_6000();
+    car_turn();
+    hi_sleep(2000);
+    car_stop();
 } 
 
 hi_u32 g_car_control_demo_task_id= 0;
